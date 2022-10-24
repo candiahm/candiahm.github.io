@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo HTTPS</title>
+</head>
+<body>
+    <h1>Demo HTTPS</h1>
+
+
+
+
+    <script>    
+
+        // "navigator" tiene online, clipbord, geolocalización
+
+        // // Opción 1:
+        // if (navigator && navigator.serviceWorker) {
+            
+        // }
+
+        // // Opción 2:
+        // navigator.serviceWorker && navigator.serviceWorker.register("./sw.js")
+        // .then((reg) => {
+        //     console.log('SW Registred')
+        // })
+
+        // Opción 3:
+        (navigator)
+        && navigator.serviceWorker
+        && navigator.serviceWorker.register("sw.js")
+        .then( (reg) => {
+            console.log('PAGE: SW Registred')
+        })
+        .catch( (err) => {
+            console.log('PAGE: SW Error al registrar')
+        })
+
+
+        </script>
+</body>
+</html>
