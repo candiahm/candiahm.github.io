@@ -4,41 +4,85 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo HTTPS</title>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Demo HTTPS</h1>
+    
+    <h1>Probando notificaciones push</h1>
+
+
+
+    <div>
+        <span>
+            <span id="not">Pidiendo permisos...</span>
+        </span>
+    </div>
+
+
+    <div>
+        <button id="mos">Mostrar notificación</button>
+
+        
+    </div>
 
 
 
 
-    <script>    
+    <script>
 
-        // "navigator" tiene online, clipbord, geolocalización
+        // Para guardar la registración
+        var serviceWorkerRegistration = null;
 
-        // // Opción 1:
-        // if (navigator && navigator.serviceWorker) {
-            
-        // }
+        navigator &&
+          navigator.serviceWorker &&
+          navigator.serviceWorker
+            .register("sw.js")
+            .then((reg) => {
+              console.log("PAGE: SW Registred");
+  
+              // Guardo la registración
+              serviceWorkerRegistration = reg;
 
-        // // Opción 2:
-        // navigator.serviceWorker && navigator.serviceWorker.register("./sw.js")
-        // .then((reg) => {
-        //     console.log('SW Registred')
-        // })
-
-        // Opción 3:
-        (navigator)
-        && navigator.serviceWorker
-        && navigator.serviceWorker.register("sw.js")
-        .then( (reg) => {
-            console.log('PAGE: SW Registred')
-        })
-        .catch( (err) => {
-            console.log('PAGE: SW Error al registrar')
-        })
+            //   sw = reg.active;
+            //   // Recibo el mensaje del sw
+            //   navigator.serviceWorker.addEventListener("message", (msg) => {
+            //     // mostrarMensaje(msg.data.mensaje);
+            //     mostrarMensaje(msg.data);
+            //   })
+  
+            })
+            .catch((err) => {
+              console.log("PAGE: SW Error al registrar");
+            });
 
 
-        </script>
+
+            // Pedir permiso para recibir notificaciones.
+            window.addEventListener("load", ()=>{
+                window.Notification.requestPermission()
+                .then((perm)=>{
+                    console.log("PAGE: SW requestPermission", perm);
+
+                    document.querySelector("#not").innerHTML = perm;
+
+                })
+            })
+
+      </script>
+
+<script>
+    document.getElementById("mos").addEventListener("click", (event)=>{
+        console.log(event)
+
+        // Guardando la variable:
+        serviceWorkerRegistration.showNotification("Notificación del cliente")
+
+        // Otra forma: pidiendo:
+        //navigator.serviceWorker.getRegistration("Notificación del cliente")
+
+    })
+</script>
+
+
 </body>
 </html>
